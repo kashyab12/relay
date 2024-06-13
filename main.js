@@ -1,17 +1,19 @@
 import { Client } from 'whatsapp-web.js';
 import pkg from 'qrcode-terminal';
 
-const { generate: generateQrCode } = pkg;
+const { generate } = pkg;
 const client = new Client({
-  webVersionCache: {
-    type: 'remote',
-    remotePath: 'https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.54.html',
-  }
-});
+  puppeteer: {
+    headless: true,
+    ignoreHTTPSErrors: true,
+    args: [ '--no-sandbox']
+  },
+})
 
 client.on('qr', (qr) => {
   // Generate and scan this code with your phone
-  generateQrCode(qr, { small: true })
+  console.log(qr)
+  generate(qr, { small: true }, (qrcode) => console.log('done'))
 });
 
 client.on('ready', () => {
