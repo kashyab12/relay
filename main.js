@@ -25,6 +25,7 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
+  console.log(`${msg.author}: ${msg.body}`)
   if (msg.body == '!ping') {
     msg.reply('pong');
   }
